@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Students — WealthWise Junior</title>
+  <meta name="description" content="8 levels of financial mastery for Class 5–12. Earn XP, climb the leaderboard, and learn real money skills that school never taught you." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .nav-links.nav-open {
+      display: flex; flex-direction: column;
+      position: fixed; top: 68px; left: 0; right: 0;
+      background: #fff; padding: 1.5rem;
+      border-bottom: 1px solid #E5E7EB;
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+      z-index: 99;
+    }
+    .nav-links.nav-open a { padding: .75rem 1rem; border-radius: .6rem; }
+
+    /* XP bar demo */
+    .xp-demo { background: #F1F5F9; border-radius: 3rem; overflow: hidden; height: 10px; margin-top: .6rem; }
+    .xp-fill { height: 100%; border-radius: 3rem; background: linear-gradient(90deg, var(--indigo), var(--orange)); }
+
+    /* streak pill */
+    .streak-pill {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: #FFF7ED; border: 1px solid #FED7AA;
+      color: var(--orange); font-weight: 800; font-size: .8rem;
+      padding: .35rem .85rem; border-radius: 2rem;
+    }
+
+    /* level progress dots */
+    .level-path { display: flex; align-items: center; gap: 0; overflow-x: auto; padding-bottom: .5rem; }
+    .lp-dot {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+      position: relative; z-index: 1;
+    }
+    .lp-dot.done { background: var(--indigo); }
+    .lp-dot.active { background: var(--orange); box-shadow: 0 0 0 4px rgba(249,115,22,.25); }
+    .lp-dot.locked { background: #E5E7EB; }
+    .lp-line { flex: 1; height: 3px; background: #E5E7EB; min-width: 24px; }
+    .lp-line.done { background: var(--indigo); }
+
+    /* profile card */
+    .profile-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      max-width: 340px;
+    }
+    .profile-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+    .profile-avatar {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--indigo), var(--orange));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; flex-shrink: 0;
+    }
+    .profile-name { font-weight: 900; font-size: 1rem; color: var(--text); }
+    .profile-roll { font-size: .72rem; color: var(--muted); font-weight: 600; font-family: 'Space Mono', monospace; }
+    .profile-level {
+      background: var(--indigo-light);
+      border-radius: .75rem;
+      padding: .75rem 1rem;
+      margin-bottom: 1rem;
+    }
+    .profile-level-label { font-size: .62rem; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; color: var(--indigo); margin-bottom: .2rem; }
+    .profile-level-name { font-size: 1rem; font-weight: 900; color: var(--text); }
+    .profile-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .75rem; }
+    .ps-item { text-align: center; }
+    .ps-val { font-size: 1.1rem; font-weight: 900; color: var(--text); }
+    .ps-lbl { font-size: .6rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+
+    /* module preview */
+    .module-card {
+      background: linear-gradient(135deg, var(--indigo), #6366F1);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      color: #fff;
+    }
+    .module-live { font-size: .65rem; font-weight: 900; color: #FCA5A5; letter-spacing: .1em; margin-bottom: .5rem; }
+    .module-title { font-size: 1.05rem; font-weight: 900; margin-bottom: .3rem; }
+    .module-sub { font-size: .75rem; color: rgba(255,255,255,.6); font-weight: 600; margin-bottom: 1rem; }
+    .module-bar { height: 6px; background: rgba(255,255,255,.2); border-radius: 3px; overflow: hidden; }
+    .module-fill { height: 100%; background: var(--orange); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo"><span>WealthWise</span> Jr.</a>
+    <ul class="nav-links">
+      <li><a href="students.html" class="active">For Students</a></li>
+      <li><a href="parents.html">For Parents</a></li>
+      <li><a href="https://wwjcampus.in.net/apply" target="_blank">🎓 Scholarship</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="https://wwjcampus.in.net" target="_blank" class="btn btn-outline btn-sm">Campus Login</a>
+      <a href="https://wwjcampus.in.net/onboarding" target="_blank" class="btn btn-primary btn-sm">Start Free →</a>
+    </div>
+    <button class="hamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" style="background: linear-gradient(180deg, var(--indigo-light) 0%, #fff 100%);">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow fade-up">
+          <span class="dot"></span>
+          Class 5 to Class 12 · 8 Levels
+        </div>
+        <h1 class="fade-up delay-1">
+          Stop memorising.<br>
+          Start <em>earning.</em>
+        </h1>
+        <p class="hero-sub fade-up delay-2">
+          WealthWise Junior is India's first financial school built for students.
+          Learn real money skills, earn XP, and climb the leaderboard — level by level.
+        </p>
+        <div class="hero-actions fade-up delay-3">
+          <a href="https://wwjcampus.in.net/onboarding" target="_blank" class="btn btn-primary btn-lg">Start Level 1 Free →</a>
+          <a href="#levels" class="btn btn-outline btn-lg">See All 8 Levels</a>
+        </div>
+        <div class="hero-trust fade-up delay-3">
+          <span class="trust-badge">🎮 Earn XP Every Class</span>
+          <span class="trust-badge">🏆 City Leaderboard</span>
+          <span class="trust-badge">🤖 24/7 AI Teacher</span>
+        </div>
+      </div>
+
+      <!-- Profile demo card -->
+      <div class="fade-up delay-2">
+        <div class="profile-card">
+          <div class="profile-top">
+            <div class="profile-avatar">🧑</div>
+            <div>
+              <div class="profile-name">Aarav Sharma</div>
+              <div class="profile-roll">WWJ-8BLR26-4821</div>
+            </div>
+            <span class="streak-pill" style="margin-left:auto;">🔥 14</span>
+          </div>
+
+          <div class="profile-level">
+            <div class="profile-level-label">Current Level</div>
+            <div class="profile-level-name">🎯 Level 4 — Strategist</div>
+          </div>
+
+          <div class="module-card" style="margin-bottom:1rem;">
+            <div class="module-live">🔴 LIVE NOW</div>
+            <div class="module-title">The Magic of Compounding</div>
+            <div class="module-sub">Module 4 · Income &amp; Careers</div>
+            <div class="module-bar"><div class="module-fill" style="width:62%"></div></div>
+          </div>
+
+          <div class="profile-stats">
+            <div class="ps-item">
+              <div class="ps-val" style="color:var(--indigo)">2,450</div>
+              <div class="ps-lbl">WealthPts</div>
+            </div>
+            <div class="ps-item">
+              <div class="ps-val" style="color:var(--orange)">🔥 14</div>
+              <div class="ps-lbl">Day Streak</div>
+            </div>
+            <div class="ps-item">
+              <div class="ps-val">#4</div>
+              <div class="ps-lbl">City Rank</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <span class="stat-val" data-target="12000" data-prefix="" data-suffix="+">0+</span>
+        <span class="stat-lbl">Students Enrolled</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat-item">
+        <span class="stat-val" data-target="450" data-prefix="" data-suffix="+">0+</span>
+        <span class="stat-lbl">Lessons Available</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat-item">
+        <span class="stat-val" data-target="28" data-prefix="" data-suffix="">0</span>
+        <span class="stat-lbl">Cities</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat-item">
+        <span class="stat-val" data-target="8" data-prefix="" data-suffix=" Levels">0</span>
+        <span class="stat-lbl">Explorer → Master</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 8 LEVELS ── -->
+<section class="section" id="levels">
+  <div class="container">
+    <div class="text-center mb-4 observe">
+      <p class="section-tag">Your Journey</p>
+      <h2 class="section-h2">8 levels of financial mastery</h2>
+      <p class="section-sub mx-auto" style="text-align:center;">
+        Everyone starts at Level 1. One module unlocks every month. Graduate as a financial Master by Class 12.
+      </p>
+    </div>
+    <div class="levels-grid observe">
+      <div class="level-card featured">
+        <div class="level-card-num">Level 1</div>
+        <div class="level-card-emoji">🔭</div>
+        <div class="level-card-name">Explorer</div>
+        <div class="level-card-mod">Money Foundations</div>
+        <div class="level-card-grade">Class 5 · Age 10–11</div>
+      </div>
+      <div class="level-card">
+        <div class="level-card-num">Level 2</div>
+        <div class="level-card-emoji">🪙</div>
+        <div class="level-card-name">Saver</div>
+        <div class="level-card-mod">Saving &amp; Budgeting</div>
+        <div class="level-card-grade">Class 6 · Age 11–12</div>
+      </div>
+      <div class="level-card">
+        <div class="level-card-num">Level 3</div>
+        <div class="level-card-emoji">📋</div>
+        <div class="level-card-name">Planner</div>
+        <div class="level-card-mod">Banking Basics</div>
+        <div class="level-card-grade">Class 7 · Age 12–13</div>
+      </div>
+      <div class="level-card">
+        <div class="level-card-num">Level 4</div>
+        <div class="level-card-emoji">🎯</div>
+        <div class="level-card-name">Strategist</div>
+        <div class="level-card-mod">Income &amp; Careers</div>
+        <div class="level-card-grade">Class 8 · Age 13–14</div>
+      </div>
+      <div class="level-card">
+        <div class="level-card-num">Level 5</div>
+        <div class="level-card-emoji">📊</div>
+        <div class="level-card-name">Analyst</div>
+        <div class="level-card-mod">Smart Spending</div>
+        <div class="level-card-grade">Class 9 · Age 14–15</div>
+      </div>
+      <div class="level-card">
+        <div class="level-card-num">Level 6</div>
+        <div class="level-card-emoji">📈</div>
+        <div class="level-card-name">Investor</div>
+        <div class="level-card-mod">Stock Markets</div>
+        <div class="level-card-grade">Class 10 · Age 15–16</div>
+      </div>
+      <div class="level-card">
+        <div class="level-card-num">Level 7</div>
+        <div class="level-card-emoji">🏗️</div>
+        <div class="level-card-name">Architect</div>
+        <div class="level-card-mod">Financial Planning</div>
+        <div class="level-card-grade">Class 11 · Age 16–17</div>
+      </div>
+      <div class="level-card grad">
+        <div class="level-card-num">Level 8</div>
+        <div class="level-card-emoji">🏆</div>
+        <div class="level-card-name">Master</div>
+        <div class="level-card-mod">Wealth Building</div>
+        <div class="level-card-grade">Class 12 · Age 17–18</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHAT YOU GET ── -->
+<section class="section section-soft">
+  <div class="container">
+    <div class="text-center mb-4 observe">
+      <p class="section-tag">What You Get</p>
+      <h2 class="section-h2">Everything school forgot to teach</h2>
+      <p class="section-sub mx-auto" style="text-align:center;">A complete financial education system built for Indian students — mapped to real life decisions.</p>
+    </div>
+    <div class="features-grid observe">
+      <div class="feat-card">
+        <span class="feat-icon">🤖</span>
+        <h3 class="feat-title">AI Teacher — Sir</h3>
+        <p class="feat-desc">Ask any money question, any time. Sir answers in plain language, 24/7, with zero judgment.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">🏆</span>
+        <h3 class="feat-title">WealthPoints &amp; XP</h3>
+        <p class="feat-desc">Earn points every class. Climb the city leaderboard. Get a verified Roll Number badge.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">🧭</span>
+        <h3 class="feat-title">Freedom GPS</h3>
+        <p class="feat-desc">A personalised roadmap helping you build skills and assets — not just degrees.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">🧪</span>
+        <h3 class="feat-title">Activity Lab</h3>
+        <p class="feat-desc">Real home experiments: 3-Jar Method, Price-Point Hunt, Budget Challenges and more.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">📊</span>
+        <h3 class="feat-title">Progress Dashboard</h3>
+        <p class="feat-desc">Track every module, attendance, and score. See exactly how far you've come.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">🎓</span>
+        <h3 class="feat-title">Scholarship Program</h3>
+        <p class="feat-desc">Can't afford it? Apply with a 100-word story or income proof. Free seats available.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section class="section">
+  <div class="container" style="max-width:860px;">
+    <div class="text-center mb-4 observe">
+      <p class="section-tag">Simple Start</p>
+      <h2 class="section-h2">Up and running in 3 minutes</h2>
+    </div>
+    <div class="steps observe">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3 class="step-title">Sign in with Google</h3>
+        <p class="step-desc">No forms, no passwords. One tap and you're in — Level 1 is completely free.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3 class="step-title">Choose Your Level</h3>
+        <p class="step-desc">Pick Explorer through Master. The curriculum builds progressively with every level.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3 class="step-title">Learn &amp; Earn</h3>
+        <p class="step-desc">Attend classes, complete activities, earn WealthPoints and XP every single session.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section class="section section-soft">
+  <div class="container">
+    <div class="text-center mb-4 observe">
+      <p class="section-tag">Students &amp; Parents</p>
+      <h2 class="section-h2">What families are saying</h2>
+    </div>
+    <div class="testi-grid observe">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"My son asked me why we don't invest in index funds after his Level 2 lesson. That conversation made me finally open a Zerodha account."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">P</div>
+          <div>
+            <div class="testi-name">Priya S.</div>
+            <div class="testi-meta">Pune · Son, Explorer → Saver</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"She used her Activity Lab money to open her first savings account at age 12. She's now 13 and has ₹3,200 she earned and saved herself."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div>
+            <div class="testi-name">Ramesh K.</div>
+            <div class="testi-meta">Bengaluru · Daughter, Level 2 Saver</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"My daughter taught me the 24-hour rule. I was about to make a ₹12,000 impulse purchase. She said 'wait 24 hours.' I didn't buy it. She's 11."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div>
+            <div class="testi-name">Sunita M.</div>
+            <div class="testi-meta">Jaipur · Daughter, Level 1 Explorer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-4 observe">
+      <p class="section-tag">Questions</p>
+      <h2 class="section-h2">Common questions, honest answers</h2>
+    </div>
+    <div class="faq-list observe">
+      <div class="faq-item">
+        <div class="faq-q"><span>How does Level 1 free work?</span><span class="faq-arrow">↓</span></div>
+        <p class="faq-a">Sign in with Google, pick your starting level, and get full access to Module 1 — no credit card, no time limit. Upgrade to continue from Level 2 onwards.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>How long does each level take?</span><span class="faq-arrow">↓</span></div>
+        <p class="faq-a">Each level covers one academic year with weekly 20–30 minute sessions. One new module unlocks each month. Students who finish early get excellence challenges.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>What are WealthPoints and XP?</span><span class="faq-arrow">↓</span></div>
+        <p class="faq-a">WealthPoints are earned for attending classes and completing activities. XP (Experience Points) measure your overall progress. Both contribute to your city leaderboard rank.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Is there a scholarship available?</span><span class="faq-arrow">↓</span></div>
+        <p class="faq-a">Yes. Any student can apply with a 100-word story about why they want to learn about money, or submit income proof. We review within 3 days and grant full free access to all 8 levels.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>What devices does it work on?</span><span class="faq-arrow">↓</span></div>
+        <p class="faq-a">Any device with a browser — phone, tablet, or computer. No app download required. The campus works on all modern browsers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section">
+  <div class="container">
+    <p class="section-tag">🎮 Start Your Journey</p>
+    <h2 class="section-h2" style="color:#fff;">
+      Level 1 is free.<br>Your future isn't.
+    </h2>
+    <p style="color:rgba(255,255,255,.65); max-width:460px; margin:0 auto 2.5rem; font-size:1rem; line-height:1.75; position:relative;">
+      Start for free. No credit card. The money habits you build at 12 will still be working for you at 42.
+    </p>
+    <a href="https://wwjcampus.in.net/onboarding" target="_blank" class="btn btn-orange btn-lg">
+      Start Free — Level 1 Explorer →
+    </a>
+    <p class="cta-note">Already joined? <a href="https://wwjcampus.in.net" target="_blank" style="color:rgba(255,255,255,.5);text-decoration:underline;">Go to Campus →</a></p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">WealthWise <span>Jr.</span></div>
+        <p class="footer-tagline">India's only structured financial curriculum for Class 5–12.</p>
+        <div class="footer-trust">
+          <span class="footer-trust-badge">📚 CBSE Aligned</span>
+          <span class="footer-trust-badge">🔒 SSL Secured</span>
+          <span class="footer-trust-badge">🛡️ Safe for Kids</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="students.html">For Students</a></li>
+          <li><a href="parents.html">For Parents</a></li>
+          <li><a href="https://wwjcampus.in.net/apply" target="_blank">Scholarship</a></li>
+          <li><a href="https://wwjcampus.in.net/onboarding" target="_blank">Get Started Free</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="https://wwjcampus.in.net/privacy" target="_blank">Privacy Policy</a></li>
+          <li><a href="https://wwjcampus.in.net/terms" target="_blank">Terms of Service</a></li>
+          <li><a href="https://wwjcampus.in.net/refund" target="_blank">Refund Policy</a></li>
+          <li><a href="https://wwjcampus.in.net/contact" target="_blank">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 WealthWise Junior. All rights reserved.</span>
+      <span>Made with ❤️ for India's next generation</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
