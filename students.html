@@ -9,83 +9,13 @@
   <style>
     .nav-links.nav-open {
       display: flex; flex-direction: column;
-      position: fixed; top: 68px; left: 0; right: 0;
+      position: fixed; top: 64px; left: 0; right: 0;
       background: #fff; padding: 1.5rem;
-      border-bottom: 1px solid #E5E7EB;
+      border-bottom: 1px solid #e2e8f0;
       box-shadow: 0 8px 24px rgba(0,0,0,.08);
       z-index: 99;
     }
-    .nav-links.nav-open a { padding: .75rem 1rem; border-radius: .6rem; }
-
-    /* XP bar demo */
-    .xp-demo { background: #F1F5F9; border-radius: 3rem; overflow: hidden; height: 10px; margin-top: .6rem; }
-    .xp-fill { height: 100%; border-radius: 3rem; background: linear-gradient(90deg, var(--indigo), var(--orange)); }
-
-    /* streak pill */
-    .streak-pill {
-      display: inline-flex; align-items: center; gap: .4rem;
-      background: #FFF7ED; border: 1px solid #FED7AA;
-      color: var(--orange); font-weight: 800; font-size: .8rem;
-      padding: .35rem .85rem; border-radius: 2rem;
-    }
-
-    /* level progress dots */
-    .level-path { display: flex; align-items: center; gap: 0; overflow-x: auto; padding-bottom: .5rem; }
-    .lp-dot {
-      width: 44px; height: 44px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; flex-shrink: 0;
-      position: relative; z-index: 1;
-    }
-    .lp-dot.done { background: var(--indigo); }
-    .lp-dot.active { background: var(--orange); box-shadow: 0 0 0 4px rgba(249,115,22,.25); }
-    .lp-dot.locked { background: #E5E7EB; }
-    .lp-line { flex: 1; height: 3px; background: #E5E7EB; min-width: 24px; }
-    .lp-line.done { background: var(--indigo); }
-
-    /* profile card */
-    .profile-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      box-shadow: var(--shadow);
-      max-width: 340px;
-    }
-    .profile-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
-    .profile-avatar {
-      width: 52px; height: 52px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--indigo), var(--orange));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem; flex-shrink: 0;
-    }
-    .profile-name { font-weight: 900; font-size: 1rem; color: var(--text); }
-    .profile-roll { font-size: .72rem; color: var(--muted); font-weight: 600; font-family: 'Space Mono', monospace; }
-    .profile-level {
-      background: var(--indigo-light);
-      border-radius: .75rem;
-      padding: .75rem 1rem;
-      margin-bottom: 1rem;
-    }
-    .profile-level-label { font-size: .62rem; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; color: var(--indigo); margin-bottom: .2rem; }
-    .profile-level-name { font-size: 1rem; font-weight: 900; color: var(--text); }
-    .profile-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .75rem; }
-    .ps-item { text-align: center; }
-    .ps-val { font-size: 1.1rem; font-weight: 900; color: var(--text); }
-    .ps-lbl { font-size: .6rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
-
-    /* module preview */
-    .module-card {
-      background: linear-gradient(135deg, var(--indigo), #6366F1);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      color: #fff;
-    }
-    .module-live { font-size: .65rem; font-weight: 900; color: #FCA5A5; letter-spacing: .1em; margin-bottom: .5rem; }
-    .module-title { font-size: 1.05rem; font-weight: 900; margin-bottom: .3rem; }
-    .module-sub { font-size: .75rem; color: rgba(255,255,255,.6); font-weight: 600; margin-bottom: 1rem; }
-    .module-bar { height: 6px; background: rgba(255,255,255,.2); border-radius: 3px; overflow: hidden; }
-    .module-fill { height: 100%; background: var(--orange); border-radius: 3px; }
+    .nav-links.nav-open a { padding: .75rem 1rem; border-radius: .5rem; }
   </style>
 </head>
 <body>
@@ -97,11 +27,11 @@
     <ul class="nav-links">
       <li><a href="students.html" class="active">For Students</a></li>
       <li><a href="parents.html">For Parents</a></li>
-      <li><a href="https://wwjcampus.in.net/apply" target="_blank">🎓 Scholarship</a></li>
+      <li><a href="https://www.wwjcampus.in.net/apply" target="_blank">🎓 Scholarship</a></li>
     </ul>
     <div class="nav-actions">
-      <a href="https://wwjcampus.in.net" target="_blank" class="btn btn-outline btn-sm">Campus Login</a>
-      <a href="https://wwjcampus.in.net/onboarding" target="_blank" class="btn btn-primary btn-sm">Start Free →</a>
+      <a href="https://www.wwjcampus.in.net" target="_blank" class="btn btn-outline btn-sm">Campus Login</a>
+      <a href="https://www.wwjcampus.in.net/onboarding" target="_blank" class="btn btn-primary btn-sm">Start Free →</a>
     </div>
     <button class="hamburger" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -110,7 +40,7 @@
 </nav>
 
 <!-- ── HERO ── -->
-<section class="hero" style="background: linear-gradient(180deg, var(--indigo-light) 0%, #fff 100%);">
+<section class="hero" style="background:#ffffff;">
   <div class="container">
     <div class="hero-inner">
       <div>
@@ -127,7 +57,7 @@
           Learn real money skills, earn XP, and climb the leaderboard — level by level.
         </p>
         <div class="hero-actions fade-up delay-3">
-          <a href="https://wwjcampus.in.net/onboarding" target="_blank" class="btn btn-primary btn-lg">Start Level 1 Free →</a>
+          <a href="https://www.wwjcampus.in.net/onboarding" target="_blank" class="btn btn-primary btn-lg">Start Level 1 Free →</a>
           <a href="#levels" class="btn btn-outline btn-lg">See All 8 Levels</a>
         </div>
         <div class="hero-trust fade-up delay-3">
@@ -163,11 +93,11 @@
 
           <div class="profile-stats">
             <div class="ps-item">
-              <div class="ps-val" style="color:var(--indigo)">2,450</div>
+              <div class="ps-val">2,450</div>
               <div class="ps-lbl">WealthPts</div>
             </div>
             <div class="ps-item">
-              <div class="ps-val" style="color:var(--orange)">🔥 14</div>
+              <div class="ps-val">🔥 14</div>
               <div class="ps-lbl">Day Streak</div>
             </div>
             <div class="ps-item">
@@ -436,10 +366,10 @@
     <p style="color:rgba(255,255,255,.65); max-width:460px; margin:0 auto 2.5rem; font-size:1rem; line-height:1.75; position:relative;">
       Start for free. No credit card. The money habits you build at 12 will still be working for you at 42.
     </p>
-    <a href="https://wwjcampus.in.net/onboarding" target="_blank" class="btn btn-orange btn-lg">
+    <a href="https://www.wwjcampus.in.net/onboarding" target="_blank" class="btn btn-white btn-lg">
       Start Free — Level 1 Explorer →
     </a>
-    <p class="cta-note">Already joined? <a href="https://wwjcampus.in.net" target="_blank" style="color:rgba(255,255,255,.5);text-decoration:underline;">Go to Campus →</a></p>
+    <p class="cta-note">Already joined? <a href="https://www.wwjcampus.in.net" target="_blank" style="color:rgba(255,255,255,.5);text-decoration:underline;">Go to Campus →</a></p>
   </div>
 </section>
 
@@ -461,17 +391,17 @@
         <ul>
           <li><a href="students.html">For Students</a></li>
           <li><a href="parents.html">For Parents</a></li>
-          <li><a href="https://wwjcampus.in.net/apply" target="_blank">Scholarship</a></li>
-          <li><a href="https://wwjcampus.in.net/onboarding" target="_blank">Get Started Free</a></li>
+          <li><a href="https://www.wwjcampus.in.net/apply" target="_blank">Scholarship</a></li>
+          <li><a href="https://www.wwjcampus.in.net/onboarding" target="_blank">Get Started Free</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>
         <ul>
-          <li><a href="https://wwjcampus.in.net/privacy" target="_blank">Privacy Policy</a></li>
-          <li><a href="https://wwjcampus.in.net/terms" target="_blank">Terms of Service</a></li>
-          <li><a href="https://wwjcampus.in.net/refund" target="_blank">Refund Policy</a></li>
-          <li><a href="https://wwjcampus.in.net/contact" target="_blank">Contact Us</a></li>
+          <li><a href="https://www.wwjcampus.in.net/privacy" target="_blank">Privacy Policy</a></li>
+          <li><a href="https://www.wwjcampus.in.net/terms" target="_blank">Terms of Service</a></li>
+          <li><a href="https://www.wwjcampus.in.net/refund" target="_blank">Refund Policy</a></li>
+          <li><a href="https://www.wwjcampus.in.net/contact" target="_blank">Contact Us</a></li>
         </ul>
       </div>
     </div>
